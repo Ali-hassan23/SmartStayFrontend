@@ -1,10 +1,9 @@
 import React from "react";
-import Link from "next/link";
 import Image from "next/image";
 
 const Welcome = () => {
   return (
-    <div className="flex h-full justify-center items-center">
+    <div className="flex h-full items-center">
     <div className="flex flex-row w-full max-w-6xl mx-auto gap-8 items-center justify-center">
       <div className="flex flex-col w-1/2 gap-5 text-center">
         <h1 className="text-4xl font-bold">Welcome To SmartStay Lahore</h1> 
