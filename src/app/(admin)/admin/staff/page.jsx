@@ -50,7 +50,7 @@ const handleCloseModal = () => {
 };
 
   return (
-    <div className='min-h-screen bg-gray-300'>
+    <div className='min-h-screen bg-gray-500'>
       <div className='w-full flex flex-row justify-around items-center h-auto py-8'>
          <div>
           <form action="" onSubmit={handleSubmit}>
