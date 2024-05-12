@@ -1,5 +1,5 @@
 'use client'
-import SingleStaffDisplay from '@/components/AdminComponents/SingleStaffDisplay';
+import SingleStaffDisplay from '@/components/AdminComponents/StaffComponents/SingleStaffDisplay';
 import { getStaffById } from '@/lib/AdminPanelFunctions/staffFunctions'
 import React, { useEffect, useState } from 'react'
 

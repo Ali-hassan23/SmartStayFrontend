@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import SidebarAdmin from "@/components/AdminComponents/SidebarAdmin";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -7,7 +8,16 @@ const inter = Inter({ subsets: ["latin"] });
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="flex flex-row gap-4 bg-gray-500">
+          <SidebarAdmin/>
+          <div className="w-full">
+          {children}
+          </div>
+        
+        </div>
+        
+        </body>
     </html>
   );
 }

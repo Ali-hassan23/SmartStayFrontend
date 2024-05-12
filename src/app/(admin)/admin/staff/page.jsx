@@ -1,6 +1,6 @@
 'use client'
-import AddStaffForm from '@/components/AdminComponents/AddStaffForm';
-import StaffDisplay from '@/components/AdminComponents/StaffDisplay';
+import AddStaffForm from '@/components/AdminComponents/StaffComponents/AddStaffForm';
+import StaffDisplay from '@/components/AdminComponents/StaffComponents/StaffDisplay';
 import { getAllStaffMembers } from '@/lib/AdminPanelFunctions/staffFunctions';
 // import Link from 'next/link';
 import React, { useEffect, useState } from "react";
