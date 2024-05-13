@@ -1,8 +1,28 @@
-import React from 'react'
+'use client'
+import React, { useState } from 'react'
 import Image from "next/image";
+import axios from 'axios';
 
 
 const ContactUs = () => {
+  const [name,setName] = useState('');
+  const [email,setEmail] = useState('');
+  const [phoneno,setPhoneno] = useState('');
+  const [message,setMessage] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response  = await axios.post('http://localhost:5000/contact',{name,email,phoneno,message},{
+        headers: { "Content-Type": "application/json" },
+      })
+      // console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+    // console.log(name,email,phoneno,message);
+  }
+
   return (
 <div className="flex w-auto flex-col items-center" style={{minHeight : 'calc(100vh - 7rem)'}} >
     <div className='flex flex-col items-center w-auto px-7 md:w-1/2 mt-36'>
@@ -24,48 +44,52 @@ const ContactUs = () => {
 
 
       <div className=" rounded-lg bg-white p-8 shadow-lg shadow-slate-500 hover:scale-105 transition-all transform lg:col-span-3 lg:p-12">
-        <form action="#" className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="sr-only" for="name">Name</label>
+            <label className="sr-only" htmlFor="name">Name</label>
             <input
               className="w-full rounded-lg border-gray-200 bg-slate-200 p-3 text-sm text-gray-900"
               placeholder="Name"
               type="text"
               id="name"
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <label className="sr-only" for="email">Email</label>
+              <label className="sr-only" htmlFor="email">Email</label>
               <input
                 className="w-full rounded-lg border-gray-200 bg-slate-200 p-3 text-sm"
                 placeholder="Email address"
                 type="email"
                 id="email"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
             <div>
-              <label className="sr-only" for="phone">Phone</label>
+              <label className="sr-only" htmlFor="phone">Phone</label>
               <input
                 className="w-full rounded-lg bg-slate-200 p-3 text-sm"
                 placeholder="Phone Number"
                 type="tel"
-                id="phone"
+                id="phoneno"
+                onChange={(e) => setPhoneno(e.target.value)}
               />
             </div>
           </div>
 
 
           <div>
-            <label className="sr-only" for="message">Message</label>
+            <label className="sr-only" htmlFor="message">Message</label>
 
             <textarea
               className="w-full rounded-lg border-gray-200 bg-slate-200 p-3 text-sm"
               placeholder="Message"
               rows="8"
               id="message"
+              onChange={(e) => setMessage(e.target.value)}
             ></textarea>
           </div>
 

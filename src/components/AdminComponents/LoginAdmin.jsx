@@ -20,10 +20,19 @@ const LoginAdmin = () => {
     setError('')
     try {
       const response = await axios.post("http://localhost:5000/admin/login",{username,password},{
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json"
+        },
       })
-      // console.log(response);
-      window.location.href = '/admin/dashboard';
+      const { accessToken } = response.data;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+      console.log(accessToken);
+
+    // Store the token in local storage
+    localStorage.setItem("token", accessToken);
+    console.log(localStorage.getItem("token"))
+      console.log(response);
+      window.location.href = '/admin/staff';
 
     } catch (error) {
       if (error.response && (error.response.status === 400 || error.response.status === 401)) {
