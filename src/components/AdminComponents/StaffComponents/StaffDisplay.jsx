@@ -6,7 +6,7 @@ const StaffDisplay = ({ data }) => {
     return <div>Loading...</div>;
   }
   return (
-    <div className="overflow-x-auto shadow-md sm:rounded-lg mr-4">
+    <div className="overflow-x-auto shadow-md sm:rounded-lg mr-4 ml-24">
       <table className="w-full min-w-max text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>

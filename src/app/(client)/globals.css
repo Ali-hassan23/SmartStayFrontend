@@ -2,3 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+.nav-link {
+        
+    border: none;
+    padding: .5vw .5vw;
+    text-transform: uppercase;
+    position: relative;
+    transition: 0.5s ease;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .nav-link::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background-color: black;
+    transition: 0.5s ease;
+  }
+  
+  .nav-link:hover {
+    color: #1e1e2b;
+    transition-delay: 0.5s;
+  }
+  
+  .nav-link:hover::before {
+    width: 100%;
+  }
+  

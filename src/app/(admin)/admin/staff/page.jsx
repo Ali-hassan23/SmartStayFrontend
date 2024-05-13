@@ -2,10 +2,9 @@
 import AddStaffForm from '@/components/AdminComponents/StaffComponents/AddStaffForm';
 import StaffDisplay from '@/components/AdminComponents/StaffComponents/StaffDisplay';
 import { getAllStaffMembers } from '@/lib/AdminPanelFunctions/staffFunctions';
-// import Link from 'next/link';
 import React, { useEffect, useState } from "react";
 
-const page = () => {
+const Page = () => {
     const [originalStaff, setOriginalStaff] = useState([]);
     const [staff,setStaff] = useState([]);
     const [showModal,setShowModal] = useState(false);
@@ -53,7 +52,7 @@ const handleCloseModal = () => {
     <div className='min-h-screen bg-gray-500'>
       <div className='w-full flex flex-row justify-around items-center h-auto py-8'>
          <div>
-          <form action="" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
           <input onChange={(e) => {setSearchParam(e.target.value)}} type="text" placeholder='Enter Staff Id' className='text-white bg-gray-600 h-10 px-3 w-72 rounded-l-lg'/>
           <button type='submit' className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 transition duration-300 rounded-r-lg">Search</button>
           </form>
@@ -69,4 +68,4 @@ const handleCloseModal = () => {
   );
 };
 
-export default page
+export default Page

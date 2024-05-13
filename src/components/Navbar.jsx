@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white fixed w-full z-10 border-b-2 border-b-slate-400">
-      <div className="max-w-screen-xl flex md:flex-row items-center justify-between mx-auto p-4 relative"> {/* Relative positioning */}
+      <div className="max-w-screen-xl flex md:flex-row items-center justify-between mx-auto px-4 py-1 relative"> {/* Relative positioning */}
         <Link href="/">
           <div className="flex items-center rtl:space-x-reverse cursor-pointer">
             <img className="h-24" src="/smartlogo.jpg" alt="HEHE"/>
@@ -44,12 +44,12 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
-              <Link href="/" passHref>
+              <Link href="/amenities" passHref>
                 <span className="block font-bold text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:dark:hover:bg-transparent nav-link" >Amenities</span>
               </Link>
             </li>
             <li>
-              <Link href="/" passHref>
+              <Link href="/contactUs" passHref>
                 <span className="block font-bold text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:dark:hover:bg-transparent nav-link" >Contact Us</span>
               </Link>
             </li>

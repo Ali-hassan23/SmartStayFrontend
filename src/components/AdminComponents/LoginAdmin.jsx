@@ -36,7 +36,7 @@ const LoginAdmin = () => {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen w-screen bg-gray-600">
+    <div className="flex justify-center items-center h-screen bg-gray-500">
       <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 bg-gray-700 border border-gray-700 rounded-xl">
         <div className="mx-auto max-w-lg text-center">
           <h1 className="text-2xl text-gray-400 font-bold sm:text-3xl">Hello Admin</h1>
