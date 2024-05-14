@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { MessageSquare } from 'lucide-react';
 
 const SidebarAdmin = () => {
   return (
@@ -118,6 +119,15 @@ const SidebarAdmin = () => {
                   </span>
                 </Link>
               </li>
+              <li>
+              <Link href={"/admin/queries"} className="group relative flex justify-center rounded px-2 py-1.5 text-gray-500 hover:bg-gray-50 hover:text-gray-700">
+              <MessageSquare className="size-5 opacity-75"/>
+              <span className="invisible absolute start-full top-1/2 ms-4 -translate-y-1/2 rounded bg-gray-900 px-2 py-1.5 text-xs font-medium text-white group-hover:visible">
+                    Queries
+                  </span>
+              </Link>
+              </li>
+              
             </ul>
           </div>
         </div>

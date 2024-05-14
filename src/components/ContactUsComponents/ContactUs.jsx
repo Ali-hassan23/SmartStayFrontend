@@ -9,11 +9,12 @@ const ContactUs = () => {
   const [email,setEmail] = useState('');
   const [phoneno,setPhoneno] = useState('');
   const [message,setMessage] = useState('');
+  const [is_read,setIs_read] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response  = await axios.post('http://localhost:5000/contact',{name,email,phoneno,message},{
+      const response  = await axios.post('http://localhost:5000/contact',{name,email,phoneno,message,is_read},{
         headers: { "Content-Type": "application/json" },
       })
       // console.log(response);

@@ -45,6 +45,7 @@ const Page = () => {
     };
   
     verifyAdmin();
+    
   }, []);
 
   useEffect(() => {
