@@ -3,16 +3,17 @@ import React, { useState } from "react";
 import moment from "moment";
 import DeleteWarningModal from "../DeleteWarningModal";
 import axios from "axios";
-import { useRouter } from "next/router";
 import Link from "next/link";
-import AddStaffForm from "./AddStaffForm";
 import EditStaffForm from "./EditStaffForm";
 
 const SingleStaffDisplay = ({ staff }) => {
   const [userExists, setUserExists] = useState(true);
+  console.log('error here : ',staff);
+
   const formatDate = (dateString) => {
     return moment(dateString).format("MMMM DD, YYYY"); // 'February 19, 1980'
   };
+
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
@@ -30,6 +31,7 @@ const SingleStaffDisplay = ({ staff }) => {
   };
 
   return (
+    // <div></div>
     <div className="flex flex-col items-center justify-center h-screen bg-gray-500">
       {userExists ? (
         <>

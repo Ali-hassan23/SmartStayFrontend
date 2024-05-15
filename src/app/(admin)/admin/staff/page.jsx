@@ -1,7 +1,6 @@
 "use client";
 import AddStaffForm from "@/components/AdminComponents/StaffComponents/AddStaffForm";
 import StaffDisplay from "@/components/AdminComponents/StaffComponents/StaffDisplay";
-import { getAllStaffMembers } from "@/lib/AdminPanelFunctions/staffFunctions";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import NotLoggedIn from "@/components/AdminComponents/NotLoggedIn";
@@ -48,25 +47,26 @@ const Page = () => {
     
   }, []);
 
+  const fetchStaffMembers = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/staff", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log('Staff data fetched:', response.data); // Debug: Log staff data
+      setStaff(response.data);
+      setOriginalStaff(response.data);
+    } catch (error) {
+      console.log("Failed to fetch staff members:", error);
+    }
+  };
+
   useEffect(() => {
     if (!isAdmin || !token) {
       console.log('Not fetching staff members, either not admin or no token.'); // Debug
       return; // Avoid fetching if not admin or token is not set
     }
-    const fetchStaffMembers = async () => {
-      try {
-        const response = await axios.get("http://localhost:5000/staff", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log('Staff data fetched:', response.data); // Debug: Log staff data
-        setStaff(response.data);
-        setOriginalStaff(response.data);
-      } catch (error) {
-        console.log("Failed to fetch staff members:", error);
-      }
-    };
     fetchStaffMembers();
   }, [token, isAdmin]); // Added isAdmin dependency
 
@@ -78,6 +78,7 @@ const Page = () => {
 
   const handleCloseModal = () => {
     setShowModal(false);
+    fetchStaffMembers();
   };
 
   if (loading) {
@@ -98,7 +99,7 @@ const Page = () => {
         <button onClick={() => setShowModal(true)} className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded transition duration-300">Add Staff</button>
       </div>
       <StaffDisplay data={staff}/>
-      {showModal && <AddStaffForm onClose={handleCloseModal}/>}
+      {showModal && <AddStaffForm onClose={handleCloseModal} token={token}/>}
       
     </div>
     ) : (

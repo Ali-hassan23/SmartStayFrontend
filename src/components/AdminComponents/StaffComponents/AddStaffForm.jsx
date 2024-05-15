@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-const AddStaffForm = ({ onClose }) => {
+const AddStaffForm = ({ onClose,token }) => {
   const modalRef = useRef();
 
   const closeModal = (e) => {
@@ -38,12 +38,15 @@ const AddStaffForm = ({ onClose }) => {
       salary,
       role,
     });
+    console.log(token);
     try {
       const response = await axios.post(
         "http://localhost:5000/staff",
         { staffid, firstname, lastname, contact, email, dob, salary, role },
         {
-          headers: { "Content-Type": "application/json" },
+          headers: { Authorization: `Bearer ${token}`,
+           "Content-Type": "application/json",
+           }      
         }
       );
       console.log(response);

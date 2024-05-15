@@ -20,7 +20,7 @@ const page = () => {
   },[])
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col pt-36'>
       {distintRooms.map((room, index) => (
         
          <SingleRoomDisplay key={index} room={room} index={index} />
