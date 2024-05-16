@@ -12,9 +12,9 @@ const SingleRoomDisplay = ({ room, index }) => {
   const paddingDiffers = index % 2 === 0 ? "pr-8" : "pl-8";
 
   return (
-    <div className={`w-full max-w-6xl mx-auto flex md:${flexDirectionClass} flex-col gap-10`}>
-      <Image src="/lobby.jpg" width={500} height={500} className="h-96 w-1/2" />
-      <div className={`w-1/2 flex flex-col items-center justify-center gap-4 text-gray-700 ${paddingDiffers}`}>
+    <div className={`md:w-full w-auto max-w-6xl mx-auto px-4  items-center flex md:${flexDirectionClass} flex-col md:gap-10`}>
+      <Image src="/lobby.jpg" width={500} height={500} className="h-52 md:h-96 w-auto  md:w-1/2" />
+      <div className={`w-auto flex flex-col items-center justify-center gap-4 text-gray-700 md:${paddingDiffers}`}>
         <h2 className="text-4xl font-semibold text-gray-800">{room.typename}</h2>
         <p className="text-center text-gray-600">
         {room.description}
@@ -31,7 +31,7 @@ const SingleRoomDisplay = ({ room, index }) => {
           </div>
         </div>
         <div>
-          <Link href={`/rooms/${room.roomtypeid}`} className="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-md shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105">
+          <Link href={`/rooms/${room.roomtypeid}`} className="bg-gray-800  hover:bg-gray-700 text-white w-auto font-semibold py-3 px-6 rounded-md shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105">
             Reserve Your Room
           </Link>
         </div>
