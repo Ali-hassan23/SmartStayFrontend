@@ -12,10 +12,10 @@ const SingleRoomDisplay = ({ room, index }) => {
   const paddingDiffers = index % 2 === 0 ? "pr-8" : "pl-8";
 
   return (
-    <div className={`md:w-full w-auto max-w-6xl mx-auto px-4  items-center flex md:${flexDirectionClass} flex-col md:gap-10`}>
+    <div className={`md:w-full w-auto max-w-6xl mx-auto px-4 pt-8 md:pt-0 items-center flex md:${flexDirectionClass} flex-col md:gap-10`}>
       <Image src="/lobby.jpg" width={500} height={500} className="h-52 md:h-96 w-auto  md:w-1/2" />
       <div className={`w-auto flex flex-col items-center justify-center gap-4 text-gray-700 md:${paddingDiffers}`}>
-        <h2 className="text-4xl font-semibold text-gray-800">{room.typename}</h2>
+        <h2 className="text-4xl font-semibold text-gray-800 mt-4">{room.typename}</h2>
         <p className="text-center text-gray-600">
         {room.description}
         </p>

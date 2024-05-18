@@ -1,6 +1,7 @@
 "use client"
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Navbar = () => {
   const [isNavbarOpen, setIsNavbarOpen] = useState(false);
@@ -11,10 +12,10 @@ const Navbar = () => {
 
   return (
     <nav className="bg-white fixed w-full z-10 border-b-2 border-b-slate-400">
-      <div className="max-w-screen-xl flex md:flex-row items-center justify-between mx-auto px-4 py-1 relative"> {/* Relative positioning */}
+      <div className="max-w-screen-xl flex md:flex-row items-center justify-between mx-auto px-4 relative"> {/* Relative positioning */}
         <Link href="/">
           <div className="flex items-center rtl:space-x-reverse cursor-pointer">
-            <img className="h-24" src="/smartlogo.jpg" alt="HEHE"/>
+            <Image className="h-20 w-auto" width={100} height={100} src="/smartlogo.jpg" alt="HEHE"/>
             <span className="self-center text-3xl font-bold whitespace-nowrap dark:text-black">SmartStay</span>
           </div>
         </Link>

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 // import { useRouter } from "next/router";
 import axios from "axios";
+import Link from "next/link";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -114,14 +115,16 @@ const Login = () => {
             </div>
           </div>
           {error && <div className="mt-4 text-red-500">{error}</div>}
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-4 items-center justify-between">
             <button
               type="submit"
               className="bg-black hover:bg-slate-600 hover:scale-105 text-white font-bold py-2 px-4 transition duration-300 rounded-lg"
             >
-              Sign in
+              Log in
             </button>
+            <p className='text-gray-500'>Don't have an account ? <Link href={'/signup'} className="hover:underline cursor-pointer">Register</Link></p>
           </div>
+
         </form>
       </div>
     </div>

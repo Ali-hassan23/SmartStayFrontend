@@ -1,8 +1,17 @@
+'use client'
 import Link from "next/link";
 import React from "react";
 import { MessageSquare } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const SidebarAdmin = () => {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    router.push('/admin');
+  }
+
   return (
     <div className="flex h-screen w-16 flex-col justify-between bg-gray-700 fixed">
       <div>
@@ -137,6 +146,7 @@ const SidebarAdmin = () => {
         <form action="#">
           <button
             type="submit"
+            onClick={handleLogout}
             className="group relative flex w-full justify-center rounded-lg px-2 py-1.5 text-sm text-gray-500 hover:text-gray-700"
           >
             <svg

@@ -3,6 +3,7 @@ import AddStaffForm from "@/components/AdminComponents/StaffComponents/AddStaffF
 import StaffDisplay from "@/components/AdminComponents/StaffComponents/StaffDisplay";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import jwt_decode, { jwtDecode } from "jwt-decode";
 import NotLoggedIn from "@/components/AdminComponents/NotLoggedIn";
 
 
@@ -15,10 +16,19 @@ const Page = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  // const clearToken = () => {
+  //   localStorage.removeItem("token");
+  //   setToken("");
+  //   setIsAdmin(false);
+  // };
+
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     console.log('Retrieved token from storage:', storedToken);
+    // const jwtToken = jwtDecode(storedToken) ;
+    // console.log("Expiration is in : " ,jwtToken.exp);
     setToken(storedToken);
+    console.log("Token from token variable : ", token);
   
     const verifyAdmin = async () => {
       if (!storedToken) {
@@ -42,9 +52,7 @@ const Page = () => {
       }
       setLoading(false);
     };
-  
     verifyAdmin();
-    
   }, []);
 
   const fetchStaffMembers = async () => {
@@ -107,54 +115,5 @@ const Page = () => {
     )}</>
   );
 };
-
-// Frontend Page Component
-
-// const Page = () => {
-//   const [token, setToken] = useState('');
-//   const [isAdmin, setIsAdmin] = useState(false);
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     const storedToken = localStorage.getItem("token");
-//     setToken(storedToken);
-//   }, []);
-
-//   useEffect(() => {
-//     const verifyAdmin = async () => {
-//       try {
-//         if (!token) {
-//           return;
-//         }
-//         const response = await axios.get("http://localhost:5000/admin/verify-admin", {
-//           headers: {
-//             Authorization: `Bearer ${token}`
-//           }
-//         });
-//         setIsAdmin(true);
-//       } catch (error) {
-//         console.error(error);
-//       }
-//       setLoading(false);
-//     };
-//     verifyAdmin();
-//   }, [token]);
-
-//   if (loading) {
-//     return <div>Loading...</div>;
-//   }
-
-//   return (
-//     <>
-//       {isAdmin ? (
-//         <div className="ml-44">
-//           Logged in As Admin
-//         </div>
-//       ) : (
-//         <div className="ml-28">Please login as an admin</div>
-//       )}
-//     </>
-//   );
-// };
 
 export default Page;

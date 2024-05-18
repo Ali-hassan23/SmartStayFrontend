@@ -1,5 +1,5 @@
 "use clinet";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import DeleteWarningModal from "../DeleteWarningModal";
 import axios from "axios";
@@ -8,11 +8,19 @@ import EditStaffForm from "./EditStaffForm";
 
 const SingleStaffDisplay = ({ staff }) => {
   const [userExists, setUserExists] = useState(true);
-  console.log('error here : ',staff);
+  const [storedToken,setStoredToken] = useState('' )
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    console.log(token)
+    setStoredToken(token);
+  },[])
 
   const formatDate = (dateString) => {
     return moment(dateString).format("MMMM DD, YYYY"); // 'February 19, 1980'
   };
+  useEffect(() => {
+    console.log(staff.staffid);
+  })
 
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -20,8 +28,11 @@ const SingleStaffDisplay = ({ staff }) => {
   const handleYesClick = async () => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/staff/${staff.staffid}`
-      );
+        `http://localhost:5000/staff/${staff.staffid}`,{
+          headers: {
+            Authorization: `Bearer ${storedToken}`,
+          },
+    });
       console.log(response);
       setUserExists(false);
     } catch (error) {
@@ -29,9 +40,11 @@ const SingleStaffDisplay = ({ staff }) => {
     }
     setShowModal(false);
   };
-
+  
+if(!staff){
+  return(<h1 className="ml-40">Loading</h1>)
+}
   return (
-    // <div></div>
     <div className="flex flex-col items-center justify-center h-screen bg-gray-500">
       {userExists ? (
         <>

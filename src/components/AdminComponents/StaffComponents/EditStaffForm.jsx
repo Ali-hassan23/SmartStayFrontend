@@ -1,9 +1,16 @@
-import React, { useRef, useState } from "react";
+'use client'
+import React, { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import moment from "moment";
 import axios from "axios";
 
 const EditStaffForm = ({ staff, onClose }) => {
+  const [storedToken,setStoredToken] = useState('' )
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setStoredToken(token);
+  })
+  
   const [formValues, setFormValues] = useState({
     firstname: staff.firstname,
     lastname: staff.lastname,
@@ -38,7 +45,9 @@ const EditStaffForm = ({ staff, onClose }) => {
     e.preventDefault();
     try {
         const response = await axios.put(`http://localhost:5000/staff/${staff.staffid}`,formValues,{
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json",
+            Authorization: `Bearer ${storedToken}`,
+            },
           })
           window.location.href = '/admin/staff';
         //   console.log(response);
@@ -132,7 +141,7 @@ const EditStaffForm = ({ staff, onClose }) => {
                     className="w-full rounded-lg text-white bg-gray-800 p-3 pe-12 text-sm shadow-sm"
                     placeholder="Phone Number"
                     type="tel"
-                    id="phone"
+                    id="contact"
                     value={formValues.contact}
                     onChange={handleChange}
                   />

@@ -5,18 +5,22 @@ import React, { useEffect, useState } from 'react'
 
 const page = ({ params }) => {
   const [staff,setStaff] = useState([]);
+  // const [token,setToken] = useState('');
 
   // useEffect(() => {
+  //   const storedToken = localStorage.getItem("token");
+  //   console.log('Retrieved token from storage:', storedToken);
+  //   setToken(storedToken);
+  //   console.log("Printing Params",params.staffid);
+  // },[]) 
 
-  // })
-  const storedToken = localStorage.getItem("token");
-    console.log('Retrieved token from storage:', storedToken);
-    setToken(storedToken);
-  console.log("Printing Params",params)
+    
+  
   const fetchStaff = async () => {
     try {
-      console.log("staffId: ", params.staffid)
+      // console.log("staffId: ", params.staffid)
       const newStaff = await getStaffById(params.staffid)  
+      console.log(newStaff);
       setStaff(newStaff);
     } catch (error) {
       console.error(error);
@@ -29,6 +33,7 @@ const page = ({ params }) => {
     
   return (
     <div>
+      {/* {console.log("In the div")} */}
       {staff.map((staff,index) => (
         <SingleStaffDisplay key={index} staff={staff}/>
       ))}
