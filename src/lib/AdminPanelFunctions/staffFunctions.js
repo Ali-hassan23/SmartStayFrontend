@@ -20,7 +20,7 @@ export const getAllStaffMembers = async (token) => {
 };
 
 export const getStaffById = async (staffId,token) => {
-    console.log('Staff ID:', staffId);
+    // console.log('Staff ID:', staffId);
   try {
     const response = await axios.get(`http://localhost:5000/staff/${staffId}`);
     console.log("Response is response.data[0] : " , response.data[0]);

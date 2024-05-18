@@ -26,7 +26,7 @@ const page = () => {
          <SingleRoomDisplay key={index} room={room} index={index} />
          
       ))}
-      {/* <SingleRoomDisplay room={distintRooms[0]} /> */}
+      
     </div>
   )
 }

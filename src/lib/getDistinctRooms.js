@@ -8,3 +8,12 @@ export const getDistinctRooms = async () => {
     alert(error);
   }
 };
+
+export const singleRoomOfType = async (id) => {
+  try {
+    const response = await axios.get(`http://localhost:5000/roomType/${id}`);
+    return response.data[0];
+  } catch (error) {
+    alert(error);
+  }
+};
