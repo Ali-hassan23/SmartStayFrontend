@@ -1,12 +1,21 @@
-import Login from '@/components/CustomerLogin/Login'
-import React from 'react'
+'use client'
+import React, { useState } from 'react';
+import Login from '@/components/CustomerLogin/Login';
+import Signup from '@/components/CustomerLogin/Signup';
 
-const page = () => {
+const Page = () => {
+  const [showSignup, setShowSignup] = useState(false);
+
   return (
     <div className='pt-16'>
-      <Login/>
+     
+      {showSignup ? (
+        <Signup onLoginClick={() => setShowSignup(false)}/>
+      ) : (
+        <Login onSignupClick={() => setShowSignup(true)} />
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default Page;

@@ -50,6 +50,11 @@ const Navbar = () => {
               </Link>
             </li>
             <li>
+              <Link href="/yourReservations" passHref>
+                <span className="block font-bold text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:dark:hover:bg-transparent nav-link" >Your Reservations</span>
+              </Link>
+            </li>
+            <li>
               <Link href="/contactUs" passHref>
                 <span className="block font-bold text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:dark:hover:bg-transparent nav-link" >Contact Us</span>
               </Link>

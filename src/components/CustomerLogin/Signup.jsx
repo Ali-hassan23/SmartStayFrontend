@@ -3,14 +3,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import DatePicker from "react-datepicker";
-import Link from 'next/link';
 
 
-
-const Signup = () => {
-
-  const router = useRouter();
+const Signup = ({ onLoginClick }) => {
 
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
@@ -33,8 +28,6 @@ const Signup = () => {
         password,
       };
         console.log(formData);
-        router.push('/login');
-
        try {
          const response  = await axios.post('http://localhost:5000/auth/signup',formData,{
            headers: { "Content-Type": "application/json" },
@@ -43,12 +36,12 @@ const Signup = () => {
       } catch (error) {
          console.log(error);
        }
+       onLoginClick();
    };
 
   return (
     <div>
-      <form className="px-7 h-screen w-auto grid justify-center items-center" onSubmit={handleSubmit}>
-
+      <form onSubmit={handleSubmit}  className="px-7 h-screen w-auto grid justify-center items-center">
         <div className="grid gap-4 shadow-md w-auto shadow-slate-400 hover:scale-105 transition-all transform rounded-xl p-6" id="form">
         <h2 className='text-black text-3xl text-center font-bold '>Sign Up</h2>
 
@@ -69,8 +62,9 @@ const Signup = () => {
             <input className="shadow-md text-sm p-3 ex w-full outline-none focus:border-solid focus:border-[1px] border-slate-400 rounded-xl placeholder:text-gray-500" type="password" placeholder="Confirm password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required />
           </div>
           <button className="outline-none glass shadow-lg rounded-xl w-full p-3 bg-black text-white hover:bg-slate-600 hover:border-solid font-bold" type="submit">Submit</button>
-          <p className='text-gray-500'>Already have an account ? <Link href={'/login'} className='hover:underline'>Log in</Link></p>
+          <p className='text-gray-500'>Already have an account ? <button type='button' onClick={onLoginClick} className='hover:underline'>Log in</button></p>
         </div>
+        
       </form>
     </div>
   );

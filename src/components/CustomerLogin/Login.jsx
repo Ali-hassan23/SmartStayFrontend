@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Link from "next/link";
 
-const Login = () => {
+const Login = ({ onSignupClick, onLoginSuccessfull }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,7 +20,7 @@ const Login = () => {
     console.log(email,password);
     setError('')
     try {
-      const response = await axios.post("http://localhost:5000/admin/login",{email,password},{
+      const response = await axios.post("http://localhost:5000/auth/login",{email,password},{
         headers: { 
           "Content-Type": "application/json"
         },
@@ -30,10 +30,11 @@ const Login = () => {
       console.log(accessToken);
 
     // Store the token in local storage
-    localStorage.setItem("token", accessToken);
-    console.log(localStorage.getItem("token"))
-      console.log(response);
-      window.location.href = '/admin/staff';
+    localStorage.setItem("customerToken", accessToken);
+    console.log(localStorage.getItem("customerToken"))
+    console.log(response);
+    onLoginSuccessfull();
+      // window.location.href = '/admin/staff';
 
     } catch (error) {
       if (error.response && (error.response.status === 400 || error.response.status === 401)) {
@@ -68,9 +69,8 @@ const Login = () => {
                 className="w-full rounded-lg text-black shadow-md focus:outline-none focus:bg-zinc-100 shadow-slate-400 bg-white p-4 pe-12 text-sm"
                 placeholder="Enter email"
                 onChange={(e) => {setemail(e.target.value)}}
+                required
               />
-
-              
             </div>
           </div>
 
@@ -85,6 +85,7 @@ const Login = () => {
                 className="w-full rounded-lg text-black shadow-md shadow-slate-400 focus:bg-zinc-100 focus:outline-none bg-white p-4 pe-12 text-sm"
                 placeholder="Enter password"
                 onChange={(e) => {setPassword(e.target.value)}}
+                required
               />
 
               <span
@@ -122,7 +123,7 @@ const Login = () => {
             >
               Log in
             </button>
-            <p className='text-gray-500'>Don't have an account ? <Link href={'/signup'} className="hover:underline cursor-pointer">Register</Link></p>
+            <p className='text-gray-500'>Don't have an account ? <button type="button" onClick={onSignupClick} className="hover:underline cursor-pointer">Register</button></p>
           </div>
 
         </form>

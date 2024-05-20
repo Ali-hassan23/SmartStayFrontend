@@ -1,17 +1,17 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { singleRoomOfType } from "@/lib/getDistinctRooms";
+import { availableRoomNumber, singleRoomOfType } from "@/lib/getDistinctRooms";
+import axios from "axios";
 
-const ReservationForm = (id) => {
-  const [roomType, setRoomType] = useState();
-  const [checkinDate, setcheckinDate] = useState("");
-  const [checkoutDate, setcheckoutDate] = useState("");
+const ReservationForm = ({ id, onReservationComplete }) => {
+  const [roomType, setRoomType] = useState(null);
+  const [checkinDate, setCheckinDate] = useState("");
+  const [checkoutDate, setCheckoutDate] = useState("");
+  const [roomNumber, setRoomNumber] = useState(null);
   const [total, setTotal] = useState(0);
   const [error, setError] = useState("");
-  
 
-  //Getting minimum date
-
+  // Getting today's and next day's date in the required format
   let currentDate = new Date();
   let day = currentDate.getDate();
   let month = currentDate.getMonth() + 1; // Month is zero-indexed, so add 1
@@ -23,10 +23,19 @@ const ReservationForm = (id) => {
 
   const fetchRoomTypeData = async () => {
     try {
-      const roomData = await singleRoomOfType(id.id);
+      const roomData = await singleRoomOfType(id);
       setRoomType(roomData);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching room type data:", error);
+    }
+  };
+
+  const fetchRoomNumber = async () => {
+    try {
+      const roomNo = await availableRoomNumber(id);
+      setRoomNumber(roomNo.roomno);
+    } catch (error) {
+      console.error("Error fetching room number:", error);
     }
   };
 
@@ -39,38 +48,42 @@ const ReservationForm = (id) => {
     const differenceInDays = Math.ceil(differenceInMs / millisecondsInDay);
 
     const totalBill = differenceInDays * roomType.price_per_night;
-    if(totalBill <= 0){
-        setError("Please Select Valid Dates")
-    } 
-    setTotal(totalBill)
+    if (totalBill <= 0) {
+      setError("Please select valid dates");
+    } else {
+      setError("");
+    }
+    setTotal(totalBill);
   };
 
   useEffect(() => {
-    fetchRoomTypeData();
-  }, [id.id]);
+    if (id) {
+      fetchRoomTypeData();
+      fetchRoomNumber();
+    }
+  }, [id]);
 
   useEffect(() => {
     if (checkinDate && checkoutDate) {
-        calculateTotal();
-      }
-  }, [checkinDate,checkoutDate]);
-
-  useEffect(() => {
-    console.log(todayDate);
-  }, [roomType]);
+      calculateTotal();
+    }
+  }, [checkinDate, checkoutDate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if(!error){
-        const formData = {
-            checkinDate,
-            checkoutDate,
-          };
-          console.log(formData);
+    try {
+      const response = await axios.post("http://localhost:5000/reservation/makeReservation", {
+        checkinDate,
+        checkoutDate,
+        roomNumber,
+        total
+      });
+      console.log(response.data);
+      const { reservationID } = response.data;
+      onReservationComplete(reservationID);
+    } catch (error) {
+      console.error("Error making reservation:", error);
     }
-    calculateTotal();
-    setError("");
   };
 
   return (
@@ -89,21 +102,29 @@ const ReservationForm = (id) => {
                 Reservation
               </h2>
               <div className="grid gap-2 w-full">
-                <div className="text-black text-lg font-bold">
-                  RoomType :{" "}
-                  <span className="font-thin text-gray-700">
-                    {roomType.typename}
-                  </span>
+                <div className="flex md:flex-row flex-col justify-between">
+                  <div className="text-black text-lg font-bold">
+                    Room Type:{" "}
+                    <span className="font-thin text-gray-700">
+                      {roomType.typename}
+                    </span>
+                  </div>
+                  <div className="text-black text-lg font-bold">
+                    Room Number:{" "}
+                    <span className="font-thin text-gray-700">
+                      {roomNumber || "Loading..."}
+                    </span>
+                  </div>
                 </div>
                 <div className="flex md:flex-row flex-col justify-between">
                   <div className="text-black text-lg font-bold">
-                    Price (Per Night) :{" "}
+                    Price (Per Night):{" "}
                     <span className="font-thin text-gray-700">
                       {roomType.price_per_night}$
                     </span>
                   </div>
                   <div className="text-black text-lg font-bold">
-                    Total : <span className="font-thin text-gray-700">{total}.00$</span>
+                    Total: <span className="font-thin text-gray-700">{total}.00$</span>
                   </div>
                 </div>
               </div>
@@ -119,7 +140,7 @@ const ReservationForm = (id) => {
                   className="capitalize shadow-md p-3 ex w-full outline-none focus:border-solid focus:border-[1px] border-slate-400 rounded-xl placeholder:text-black relative z-10"
                   type="date"
                   value={checkinDate}
-                  onChange={(e) => setcheckinDate(e.target.value)}
+                  onChange={(e) => setCheckinDate(e.target.value)}
                   min={todayDate}
                   required
                 />
@@ -134,7 +155,7 @@ const ReservationForm = (id) => {
                   className="capitalize shadow-md p-3 ex w-full outline-none focus:border-solid focus:border-[1px] border-slate-400 rounded-xl placeholder:text-black relative z-10"
                   type="date"
                   value={checkoutDate}
-                  onChange={(e) => setcheckoutDate(e.target.value)}
+                  onChange={(e) => setCheckoutDate(e.target.value)}
                   min={checkinDate}
                   required
                   placeholder={nextDate}
@@ -151,7 +172,7 @@ const ReservationForm = (id) => {
           </form>
         </div>
       ) : (
-        <div>Noooooo</div>
+        <div className="pt-40">Loading...</div>
       )}
     </>
   );
