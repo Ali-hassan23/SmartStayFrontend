@@ -4,6 +4,11 @@ import SidebarAdmin from "@/components/AdminComponents/SidebarAdmin";
 
 const inter = Inter({ subsets: ["latin"] });
 
+export const metadata = {
+  title: "SmartStay | Admin Portal",
+  description: "Hotel management portal for admins ",
+  icons: "/smartlogo.jpg",
+};
 
 export default function RootLayout({ children }) {
   return (

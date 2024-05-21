@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import jwt_decode, { jwtDecode } from "jwt-decode";
 import NotLoggedIn from "@/components/AdminComponents/NotLoggedIn";
+import { SearchX } from "lucide-react";
 
 
 const Page = () => {
@@ -12,6 +13,7 @@ const Page = () => {
   const [staff, setStaff] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [searchParam, setSearchParam] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [token, setToken] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -78,11 +80,20 @@ const Page = () => {
     fetchStaffMembers();
   }, [token, isAdmin]); // Added isAdmin dependency
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const filteredStaff = originalStaff.filter((s) => s.staffid === searchParam);
-    setStaff(searchParam ? filteredStaff : [...originalStaff]);
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const filteredStaff = originalStaff.filter((s) => s.staffid === searchParam);
+  //   setStaff(searchParam ? filteredStaff : [...originalStaff]);
+  // };
+
+  useEffect(()=>{
+    const filteredStaff = originalStaff.filter((s) => s.staffid.toLowerCase().includes(searchQuery.toLowerCase()));
+    setStaff(filteredStaff);
+  },[searchQuery,staff])
+
+  const handleSerachInput = (e)=>{
+    setSearchQuery(e.target.value)
+  }
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -98,8 +109,8 @@ const Page = () => {
       <div className='min-h-screen bg-gray-500'>
       <div className='w-full flex flex-row justify-around items-center h-auto py-8'>
          <div>
-          <form onSubmit={handleSubmit}>
-          <input onChange={(e) => {setSearchParam(e.target.value)}} type="text" placeholder='Enter Staff Id' className='text-white bg-gray-600 h-10 px-3 w-72 rounded-l-lg'/>
+          <form onSubmit={handleSerachInput}>
+          <input onChange={(e) => {setSearchQuery(e.target.value)}} type="text" placeholder='Enter Staff Id' className='text-white bg-gray-600 h-10 px-3 w-72 rounded-l-lg'/>
           <button type='submit' className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 transition duration-300 rounded-r-lg">Search</button>
           </form>
           </div>
