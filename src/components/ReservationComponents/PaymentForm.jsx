@@ -1,7 +1,9 @@
 'use client'
 import { reservationById } from "@/lib/reservationFunctions";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+// import { useRouter } from "next/router"
 
 const PaymentForm = ({ reservationID }) => {
   const [cardNumber, setCardNumber] = useState("");
@@ -10,6 +12,8 @@ const PaymentForm = ({ reservationID }) => {
   const [reservation, setReservation] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const router = useRouter();
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -24,6 +28,7 @@ const PaymentForm = ({ reservationID }) => {
     try {
       const response = await axios.post('http://localhost:5000/payment',paymentData)
       console.log(response);
+      router.push('/yourReservations');
     } catch (error) {
       console.log(error);
     }

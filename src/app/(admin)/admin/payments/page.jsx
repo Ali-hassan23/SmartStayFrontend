@@ -1,12 +1,13 @@
-import Reservations from '@/components/AdminComponents/Reservation/Reservations'
+import Payments from '@/components/AdminComponents/Payments/Payments'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      <Reservations/>
+      <Payments/>
     </div>
   )
 }
 
 export default page
+

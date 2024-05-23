@@ -47,7 +47,7 @@ const Page = () => {
 
   return (
     <div className='pt-12'>
-      {!isLoggedIn ? (
+      {!isLoggedIn ? ( 
         <>
           {showSignup ? (
             <Signup onLoginClick={() => setShowSignup(false)} />
@@ -59,11 +59,13 @@ const Page = () => {
           )}
         </>
       ) : (
-        <div>
+        <div className='w-screen' >
           {reservations.length > 0 ? (
-            reservations.map((reservation) => (
+            <div className='d-flex items-center justify-center'>
+            {reservations.map((reservation) => (
               <ReservationCard key={reservation.reservationid} reservation={reservation} />
-            ))
+            ))}
+          </div>
           ) : (
             <p className='mt-44'>No reservations available</p>
           )}
