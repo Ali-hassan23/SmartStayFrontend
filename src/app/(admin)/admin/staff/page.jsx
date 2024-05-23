@@ -1,37 +1,26 @@
 "use client";
 import AddStaffForm from "@/components/AdminComponents/StaffComponents/AddStaffForm";
 import StaffDisplay from "@/components/AdminComponents/StaffComponents/StaffDisplay";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import axios from "axios";
-import jwt_decode, { jwtDecode } from "jwt-decode";
+import jwt_decode from "jwt-decode";
 import NotLoggedIn from "@/components/AdminComponents/NotLoggedIn";
-import { SearchX } from "lucide-react";
-
 
 const Page = () => {
   const [originalStaff, setOriginalStaff] = useState([]);
   const [staff, setStaff] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [searchParam, setSearchParam] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [token, setToken] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  // const clearToken = () => {
-  //   localStorage.removeItem("token");
-  //   setToken("");
-  //   setIsAdmin(false);
-  // };
-
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     console.log('Retrieved token from storage:', storedToken);
-    // const jwtToken = jwtDecode(storedToken) ;
-    // console.log("Expiration is in : " ,jwtToken.exp);
     setToken(storedToken);
     console.log("Token from token variable : ", token);
-  
+
     const verifyAdmin = async () => {
       if (!storedToken) {
         console.log('No token found, setting admin to false and loading to false.');
@@ -45,8 +34,7 @@ const Page = () => {
             Authorization: `Bearer ${storedToken}`,
           },
         });
-        console.log('Response from verify-admin:', response.data); 
-        // Assuming response.data.message means admin is verified:
+        console.log('Response from verify-admin:', response.data);
         setIsAdmin(response.data.message === 'Admin verified');
       } catch (error) {
         console.error('Error verifying admin:', error);
@@ -64,7 +52,7 @@ const Page = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log('Staff data fetched:', response.data); // Debug: Log staff data
+      console.log('Staff data fetched:', response.data);
       setStaff(response.data);
       setOriginalStaff(response.data);
     } catch (error) {
@@ -74,26 +62,22 @@ const Page = () => {
 
   useEffect(() => {
     if (!isAdmin || !token) {
-      console.log('Not fetching staff members, either not admin or no token.'); // Debug
-      return; // Avoid fetching if not admin or token is not set
+      console.log('Not fetching staff members, either not admin or no token.');
+      return;
     }
     fetchStaffMembers();
-  }, [token, isAdmin]); // Added isAdmin dependency
+  }, [token, isAdmin]);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const filteredStaff = originalStaff.filter((s) => s.staffid === searchParam);
-  //   setStaff(searchParam ? filteredStaff : [...originalStaff]);
-  // };
+  const filteredStaff = useMemo(() => {
+    return originalStaff.filter((s) =>
+      s.staffid.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [searchQuery, originalStaff]);
 
-  useEffect(()=>{
-    const filteredStaff = originalStaff.filter((s) => s.staffid.toLowerCase().includes(searchQuery.toLowerCase()));
-    setStaff(filteredStaff);
-  },[searchQuery,staff])
-
-  const handleSerachInput = (e)=>{
-    setSearchQuery(e.target.value)
-  }
+  const handleSearchInput = (e) => {
+    e.preventDefault();
+    setSearchQuery(e.target.value);
+  };
 
   const handleCloseModal = () => {
     setShowModal(false);
@@ -105,25 +89,41 @@ const Page = () => {
   }
 
   return (
-    <>{isAdmin ? (
-      <div className='min-h-screen bg-gray-500'>
-      <div className='w-full flex flex-row justify-around items-center h-auto py-8'>
-         <div>
-          <form onSubmit={handleSerachInput}>
-          <input onChange={(e) => {setSearchQuery(e.target.value)}} type="text" placeholder='Enter Staff Id' className='text-white bg-gray-600 h-10 px-3 w-72 rounded-l-lg'/>
-          <button type='submit' className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 transition duration-300 rounded-r-lg">Search</button>
-          </form>
+    <>
+      {isAdmin ? (
+        <div className='min-h-screen bg-gray-500'>
+          <div className='w-full flex flex-row justify-around items-center h-auto py-8'>
+            <div>
+              <form onSubmit={handleSearchInput}>
+                <input
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  type="text"
+                  placeholder='Enter Staff Id'
+                  className='text-white bg-gray-600 h-10 px-3 w-72 rounded-l-lg'
+                />
+                <button
+                  type='submit'
+                  className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 transition duration-300 rounded-r-lg"
+                >
+                  Search
+                </button>
+              </form>
+            </div>
+
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded transition duration-300"
+            >
+              Add Staff
+            </button>
           </div>
-         
-        <button onClick={() => setShowModal(true)} className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded transition duration-300">Add Staff</button>
-      </div>
-      <StaffDisplay data={staff}/>
-      {showModal && <AddStaffForm onClose={handleCloseModal} token={token}/>}
-      
-    </div>
-    ) : (
-      <NotLoggedIn/>
-    )}</>
+          <StaffDisplay data={filteredStaff} />
+          {showModal && <AddStaffForm onClose={handleCloseModal} token={token} />}
+        </div>
+      ) : (
+        <NotLoggedIn />
+      )}
+    </>
   );
 };
 

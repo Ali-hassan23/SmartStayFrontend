@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 
 const StaffDisplay = ({ data }) => {
+  
   if (!data) {
     return <div>Loading...</div>;
   }
@@ -44,8 +45,6 @@ const StaffDisplay = ({ data }) => {
               <td className="px-6 py-4">
                 {staff.email}
               </td>
-              
-              
               <td className="px-6 py-4">
                 {staff.role}
               </td>
