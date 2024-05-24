@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { MessageSquare, CreditCard, CalendarCheck } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Image from "next/image";
 
 const SidebarAdmin = () => {
   const router = useRouter();
@@ -15,10 +16,8 @@ const SidebarAdmin = () => {
   return (
     <div className="flex h-screen w-16 flex-col justify-between bg-gray-700 fixed">
       <div>
-        <div className="inline-flex items-center justify-center h-16">
-          <span className="grid place-content-center rounded-lg bg-gray-100 text-xs text-gray-600 h-10 w-10">
-            S
-          </span>
+        <div className="inline-flex size-16 items-center justify-center h-16">
+        <Image src="/smartlogo.jpg" alt="SmartStay Logo" width={30} height={30} className="rounded-lg bg-gray-100 text-xs text-gray-600 h-10 w-10 grid size-10 place-content-center" />
         </div>
 
         <div>

@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="flex flex-row gap-4 h-screen w-screen bg-gray-500">
+        <div className="flex flex-row gap-4 min-h-screen w-screen bg-gray-500">
           <SidebarAdmin/>
           <div className="w-full">
           {children}

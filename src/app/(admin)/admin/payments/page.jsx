@@ -1,6 +1,7 @@
 'use client'
 import NotLoggedIn from '@/components/AdminComponents/NotLoggedIn';
 import Payments from '@/components/AdminComponents/Payments/Payments'
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
 const page = () => {
@@ -38,7 +39,7 @@ const page = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Add a loading state to handle initial load
+    return <div>Loading...</div>;
   }
 
   return (

@@ -31,7 +31,7 @@ const LoginAdmin = () => {
     localStorage.setItem("token", accessToken);
     console.log(localStorage.getItem("token"))
       console.log(response);
-      window.location.href = '/admin/staff';
+      window.location.href = '/admin/dashboard';
 
     } catch (error) {
       if (error.response && (error.response.status === 400 || error.response.status === 401)) {

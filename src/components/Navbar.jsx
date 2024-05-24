@@ -15,7 +15,7 @@ const Navbar = () => {
       <div className="max-w-screen-xl flex md:flex-row items-center justify-between mx-auto px-4 relative"> {/* Relative positioning */}
         <Link href="/">
           <div className="flex items-center rtl:space-x-reverse cursor-pointer">
-            <Image className="h-20 w-auto" width={100} height={100} src="/smartlogo.jpg" alt="HEHE"/>
+            <Image className="h-20 w-auto" width={100} height={100} src="/smartlogo.jpg" alt="S"/>
             <span className="self-center text-3xl font-bold whitespace-nowrap dark:text-black">SmartStay</span>
           </div>
         </Link>

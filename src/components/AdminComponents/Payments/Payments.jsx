@@ -30,7 +30,7 @@ const Payments = () => {
   );
 
   return (
-    <div className="overflow-x-auto shadow-md sm:rounded-lg mr-4 mt-8 ml-24 h-screen ">
+    <div className="overflow-x-auto shadow-md sm:rounded-lg mt-8 ml-20 h-screen ">
       <div className="mt-4 mx-4">
         <input
           type="text"
