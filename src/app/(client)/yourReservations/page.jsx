@@ -3,12 +3,13 @@ import Login from '@/components/CustomerLogin/Login'
 import Signup from '@/components/CustomerLogin/Signup'
 import ReservationCard from '@/components/ReservationComponents/ReservationCard'
 import axios from 'axios'
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
 const Page = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
-  const [reservations, setReservations] = useState([]); // Initialized as an empty array
+  const [reservations, setReservations] = useState([]);
   const [token, setToken] = useState(null);
 
   const fetchReservationData = async () => {
@@ -21,7 +22,7 @@ const Page = () => {
         }
       });
       console.log("Response", response.data);
-      setReservations(response.data || []); // Ensure it's always an array
+      setReservations(response.data || []); 
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +68,10 @@ const Page = () => {
             ))}
           </div>
           ) : (
-            <p className='mt-44'>No reservations available</p>
+            <div className='h-screen w-screen flex items-center justify-center'>
+              <p>No reservations available</p>
+              <Link href={'/rooms'} className='className="bg-gray-800  hover:bg-gray-700 text-white w-auto font-semibold py-3 px-6 rounded-md shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105"'>Check Out Rooms</Link>
+            </div>
           )}
         </div>
       )}
