@@ -41,7 +41,7 @@ const Signup = ({ onLoginClick }) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}  className="px-7 h-screen w-auto grid justify-center items-center">
+      <form onSubmit={handleSubmit}  className="px-7 h-screen w-auto grid justify-center items-center pt-16">
         <div className="grid gap-4 shadow-md w-auto shadow-slate-400 hover:scale-105 transition-all transform rounded-xl p-6" id="form">
         <h2 className='text-black text-3xl text-center font-bold '>Sign Up</h2>
 

@@ -31,6 +31,7 @@ const Payments = () => {
 
   return (
     <div className="overflow-x-auto shadow-md sm:rounded-lg mt-8 ml-20 h-screen ">
+      <h1 className="text-gray-300 text-3xl py-3 text-center">Payments</h1>
       <div className="mt-4 mx-4">
         <input
           type="text"

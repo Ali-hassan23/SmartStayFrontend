@@ -19,7 +19,6 @@ const Page = () => {
     const storedToken = localStorage.getItem("token");
     console.log('Retrieved token from storage:', storedToken);
     setToken(storedToken);
-    console.log("Token from token variable : ", token);
 
     const verifyAdmin = async () => {
       if (!storedToken) {

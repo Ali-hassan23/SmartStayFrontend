@@ -168,7 +168,7 @@ const Page = () => {
       {isAdmin ? (
         <>
           <h1 className="text-gray-300 text-3xl py-6 text-center">Queries</h1>
-          <div className="min-h-screen bg-gray-500 ml-20 flex flex-wrap gap-5 pb-8">
+          <div className="bg-gray-500 ml-20 flex flex-wrap gap-5 pb-8">
             {queries.map(query => (
               <QueryCard query={query} key={query.id} onMarkAsRead={handleMarkAsRead} />
             ))}

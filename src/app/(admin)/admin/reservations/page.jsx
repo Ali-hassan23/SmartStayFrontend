@@ -45,7 +45,10 @@ const Page = () => {
   return (
     <div>
       {isAdmin ? (
+        <>
+        
         <Reservations />
+        </>
       ) : (
         <NotLoggedIn />
       )}

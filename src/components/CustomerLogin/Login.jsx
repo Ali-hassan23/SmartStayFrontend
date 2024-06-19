@@ -47,7 +47,7 @@ const Login = ({ onSignupClick, onLoginSuccessfull }) => {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen bg-white ">
+    <div className="flex justify-center items-center h-screen bg-white pt-10">
       <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 bg-white border shadow-lg hover:scale-105 transition-all transform shadow-slate-500 rounded-xl">
         <div className="mx-auto max-w-lg text-center">
           <h1 className="text-2xl text-black font-bold sm:text-3xl">LOGIN</h1>
